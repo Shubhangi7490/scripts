@@ -28,7 +28,7 @@ function logInToPaas() {
 	if [[ "${LOWERCASE_ENV}" == "test" ]]; then
 		local appName
 		appName=$(retrieveAppName)
-		cfSpace="${PAAS_TEST_SPACE_PREFIX}"
+		cfSpace="${PAAS_TEST_SPACE_PREFIX}-${appName}"
 	else
 		local space="PAAS_${ENVIRONMENT}_SPACE"
 		cfSpace="${!space}"
