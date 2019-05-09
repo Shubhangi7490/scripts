@@ -498,8 +498,7 @@ function deployBrokeredService() {
 	local plan="${3}"
 	local params="${4}"
 	if [[ -z "${params}" || "${params}" == "null" ]]; then
-		"${CF_BIN}" create-service "${broker}" "${plan}" "${serviceName}" || echo "Service failed to be created. Most likely that's because it's already created. Continuing with the script"
-		waitForServicesToInitialize
+		"${CF_BIN}" create-service "${broker}" "${plan}" "${serviceName}" && waitForServicesToInitialize || echo "Service failed to be created. Most likely that's because it's already created. Continuing with the script"
 		echo "Deploying [${serviceName}] via Service Broker in [${LOWERCASE_ENV}] env. Options - broker [${broker}], plan [${plan}]"
 	else
 		echo "Deploying [${serviceName}] via Service Broker in [${LOWERCASE_ENV}] env. Options - broker [${broker}], plan [${plan}], params:"
@@ -510,8 +509,7 @@ function deployBrokeredService() {
 		mkdir -p "${OUTPUT_FOLDER}"
 		echo "Writing params to [${destination}]"
 		echo "${params}" > "${destination}"
-		"${CF_BIN}" create-service "${broker}" "${plan}" "${serviceName}" -c "${destination}"  || echo "Service failed to be created. Most likely that's because it's already created. Continuing with the script"
-        waitForServicesToInitialize
+		"${CF_BIN}" create-service "${broker}" "${plan}" "${serviceName}" -c "${destination}" && waitForServicesToInitialize || echo "Service failed to be created. Most likely that's because it's already created. Continuing with the script"
 #		   TODO: For create-service, there is a -t tags parameter -  add support for this?
 #		   TODO: For create-service and cups, do we need to consider updates for services that already exist?
 		# TODO: Marcin discussion - decision: hanlde the update using a diff in test-rollback
