@@ -77,8 +77,8 @@ function deleteService() {
 	local serviceName
 	serviceName=$(toLowerCase "${1}")
 	local serviceType="${2}"
-	"${CF_BIN}" delete -f "${serviceName}" || echo "Failed to delete app [${serviceName}]"
-	"${CF_BIN}" delete-service -f "${serviceName}" || echo "Failed to delete service [${serviceName}]"
+	"${CF_BIN}" delete -f "${serviceName}" && waitForServicesToDelete || echo "Failed to delete app [${serviceName}]"
+	"${CF_BIN}" delete-service -f "${serviceName}" && waitForServicesToDelete || echo "Failed to delete service [${serviceName}]"
 } # }}}
 
 # FUNCTION: testDeploy {{{
@@ -899,6 +899,24 @@ function waitForServicesToInitialize() {
 		return 1
 	fi
 	echo "Service initialization - successful"
+} # }}}
+
+# FUNCTION: waitForServicesToDelete {{{
+# Waits for services to Delete
+function waitForServicesToDelete() {
+	# Wait until services are ready
+	while "${CF_BIN}" services | grep 'delete in progress'
+	do
+		sleep 10
+		echo "Waiting for services to initialize..."
+	done
+
+	# Check to see if any services failed to create
+	if "${CF_BIN}" services | grep 'delete failed'; then
+		echo "Service deletion - failed. Exiting."
+		return 1
+	fi
+	echo "Service deletion - successful"
 } # }}}
 
 export CF_BIN
