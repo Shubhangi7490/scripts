@@ -25,14 +25,8 @@ function logInToPaas() {
 	local org="PAAS_${ENVIRONMENT}_ORG"
 	local cfSpace
 	local cfOrg="${!org}"
-	if [[ "${LOWERCASE_ENV}" == "test" ]]; then
-		local appName
-		appName=$(retrieveAppName)
-		cfSpace="${PAAS_TEST_SPACE_PREFIX}-${appName}"
-	else
-		local space="PAAS_${ENVIRONMENT}_SPACE"
-		cfSpace="${!space}"
-	fi
+	local space="PAAS_${ENVIRONMENT}_SPACE"
+	cfSpace="${!space}"
 	local api="PAAS_${ENVIRONMENT}_API_URL"
 	local apiUrl="${!api:-api.run.pivotal.io}"
 	local cfToDownload="${CF_REDOWNLOAD_CLI:-true}"
