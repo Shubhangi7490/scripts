@@ -884,7 +884,7 @@ function waitForServicesToInitialize() {
 	while "${CF_BIN}" services | grep 'create in progress'
 	do
 		sleep 10
-		echo "Waiting for services to initialize..."
+		echo "Waiting for service to initialize..."
 	done
 
 	# Check to see if any services failed to create
@@ -902,7 +902,7 @@ function waitForServicesToDelete() {
 	while "${CF_BIN}" services | grep 'delete in progress'
 	do
 		sleep 10
-		echo "Waiting for services to initialize..."
+		echo "Waiting for service to delete..."
 	done
 
 	# Check to see if any services failed to create
