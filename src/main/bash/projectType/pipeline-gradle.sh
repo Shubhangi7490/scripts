@@ -19,7 +19,9 @@ if [[ ${BUILD_OPTIONS} != *"java.security.egd"* ]]; then
 		export BUILD_OPTIONS="-Djava.security.egd=file:///dev/urandom"
 	fi
 fi
-
+subProject = "${SUBPROJECT_DIR}"
+foo="Sub project Dir : $subProject"
+echo $foo 
 # FUNCTION: build {{{
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
@@ -31,7 +33,7 @@ function build() {
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
 		# shellcheck disable=SC2086
-		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
+		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --project-dir "${subProject} --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
 	fi
 } # }}}
 
