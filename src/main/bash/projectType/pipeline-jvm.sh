@@ -48,12 +48,22 @@ function downloadAppBinary() {
 # FUNCTION: isMavenProject {{{
 # Returns true if Maven Wrapper is used
 function isMavenProject() {
+    local subProj="SUBPROJECT_DIR"
+	local subProject="${!subProj}"
+	if [[ ! -z "$subProject" ]] ; then
+       cd $subProject
+	fi
 	[ -f "mvnw" ]
 } # }}}
 
 # FUNCTION: isGradleProject {{{
 # Returns true if Gradle Wrapper is used
 function isGradleProject() {
+    local subProj="SUBPROJECT_DIR"
+	local subProject="${!subProj}"
+	if [[ ! -z "$subProject" ]] ; then
+       cd $subProject
+	fi
 	[ -f "gradlew" ]
 } # }}}
 
