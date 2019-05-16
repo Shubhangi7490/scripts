@@ -31,7 +31,9 @@ function getLanguageType() {
 function guessLanguageType() {
     local subProj="SUBPROJECT_DIR"
 	local subProject="${!subProj}"
-    cd $subProject
+	if [[ ! -z "$subProject" ]] ; then
+       cd $subProject
+	fi
 	if [[ -f "mvnw" ||  -f "gradlew" ]]; then
 		echo "jvm"
 	elif [ -f "composer.json" ]; then
