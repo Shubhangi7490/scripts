@@ -26,16 +26,17 @@ fi
 function build() {
 	local subProj="SUBPROJECT_DIR"
 	local subProject="${!subProj}"
-	local foo="Sub project Dir : $subProject"
-    echo $foo
-	local pipelineVersion="${PASSED_PIPELINE_VERSION:-${PIPELINE_VERSION:-}}"
+	if [[! -z "$subProject" ]]; then
+	     cd $subProject
+    fi
+	
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
 	if [[ "${CI}" == "CONCOURSE" ]]; then
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
 		# shellcheck disable=SC2086
-		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --project-dir "${subProject} --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
+		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
 	fi
 } # }}}
 
