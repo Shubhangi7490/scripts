@@ -29,6 +29,11 @@ function getLanguageType() {
 # FUNCTION: guessLanguageType {{{
 # Tries to guess the language type basing on the contents of the repository
 function guessLanguageType() {
+    local subProj="SUBPROJECT_DIR"
+	local subProject="${!subProj}"
+	local foo="Sub project Dir : $subProject"
+    echo $foo
+    cd $subProject
 	if [[ -f "mvnw" ||  -f "gradlew" ]]; then
 		echo "jvm"
 	elif [ -f "composer.json" ]; then
