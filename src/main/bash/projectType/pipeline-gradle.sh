@@ -35,6 +35,8 @@ function build() {
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
+	    echo pwd
+		ls -la
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
 	fi
