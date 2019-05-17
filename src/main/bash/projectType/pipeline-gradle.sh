@@ -30,7 +30,7 @@ function build() {
 	if [[! -z "$subProject" ]]; then
 	     cd $subProject
     fi
-	
+	cd bes-blob-storage
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
 	if [[ "${CI}" == "CONCOURSE" ]]; then
 		# shellcheck disable=SC2086
