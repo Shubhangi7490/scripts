@@ -26,6 +26,7 @@ fi
 function build() {
 	local subProj="SUBPROJECT_DIR"
 	local subProject="${!subProj}"
+	echo $subProject
 	if [[! -z "$subProject" ]]; then
 	     cd $subProject
     fi
@@ -35,7 +36,7 @@ function build() {
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
-	    echo pwd
+	    pwd
 		ls -la
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
