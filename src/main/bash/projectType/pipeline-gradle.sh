@@ -20,14 +20,20 @@ if [[ ${BUILD_OPTIONS} != *"java.security.egd"* ]]; then
 	fi
 fi
 
+local subProj="${1}"
+echo $subProj
+if [[! -z "$subProj" ]]; then
+	    export SUB_DIR = $subProj
+fi
+
 # FUNCTION: build {{{
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
 function build() {
-	local subProj=$SUBPROJECT_DIR
-	echo $subProject
-	if [[! -z "$subProject" ]]; then
-	     cd $subProject
+	local subProj=$SUB_DIR
+	echo $subProj
+	if [[! -z "$subProj" ]]; then
+	     cd $subProj
     fi
 	#cd bes-blob-storage
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
@@ -46,6 +52,11 @@ function build() {
 # Gradle implementation of executing API compatibility check
 function executeApiCompatibilityCheck() {
 	local latestProdVersion="${1}"
+	local subProj=$SUB_DIR
+	echo $subProj
+	if [[! -z "$subProj" ]]; then
+	     cd $subProj
+    fi
 	if [[ "${CI}" == "CONCOURSE" ]]; then
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean apiCompatibility -DlatestProductionVersion="${latestProdVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
@@ -58,18 +69,25 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
-    ls -la
-    cd bes-blob-storage
-	ls -la
-	grep "groupID" gradle.properties | cut -d'=' -f2
+    local subProj=$SUB_DIR
+	echo $subProj
+	if [[! -z "$subProj" ]]; then
+	     grep "groupID" $subProj/gradle.properties | cut -d'=' -f2
+    else
+	     grep "groupID" gradle.properties | cut -d'=' -f2
+	fi
 } # }}}
 
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
 function retrieveAppName() {
-    cd bes-blob-storage
-    ls -la
-	grep "artifactID" gradle.properties | cut -d'=' -f2
+    local subProj=$SUB_DIR
+	echo $subProj
+	if [[! -z "$subProj" ]]; then
+	     grep "artifactID" $subProj/gradle.properties | cut -d'=' -f2
+    else
+	     grep "artifactID" gradle.properties | cut -d'=' -f2
+	fi
 } # }}}
 
 # FUNCTION: printTestResults {{{
