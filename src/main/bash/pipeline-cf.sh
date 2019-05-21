@@ -80,6 +80,9 @@ function deleteService() {
 function testDeploy() {
 	# TODO: Consider making it less JVM specific
 	local projectGroupId
+	pwd
+	ls -la
+	echo "Testing"
 	projectGroupId=$(retrieveGroupId)
 	local appName
 	appName=$(retrieveAppName)
