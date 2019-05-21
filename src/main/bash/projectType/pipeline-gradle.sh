@@ -33,8 +33,6 @@ function build() {
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
-	    pwd
-		ls -la
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean build -x compileTestKotlin -x convertSwagger2markup -x ktlint -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
 	fi
@@ -59,6 +57,8 @@ function executeApiCompatibilityCheck() {
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
     if [[ ! -z "${SUB_DIR}" ]] ; then
+	ls -la
+	ls -la ${SUB_DIR}
 	     grep "groupID" "${SUB_DIR}/gradle.properties" | cut -d'=' -f2
     else
 	     grep "groupID" gradle.properties | cut -d'=' -f2
