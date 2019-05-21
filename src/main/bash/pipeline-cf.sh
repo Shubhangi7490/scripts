@@ -80,12 +80,6 @@ function deleteService() {
 function testDeploy() {
 	# TODO: Consider making it less JVM specific
 	local projectGroupId
-	local subProj="SUBPROJECT_DIR"
-	local subProject="${!subProj}"
-	echo $subProject
-	if [[! -z "$subProject" ]]; then
-	     cd $subProject
-    fi
 	projectGroupId=$(retrieveGroupId)
 	local appName
 	appName=$(retrieveAppName)
