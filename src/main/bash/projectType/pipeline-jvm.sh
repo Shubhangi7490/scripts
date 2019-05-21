@@ -79,7 +79,7 @@ function projectType() {
 
 export -f projectType
 export PROJECT_TYPE
-subProj="${1}"
+subProj="${SUB_DIR}"
 echo "test: $subProj"
 if [[! -z "$subProj" ]]; then
 	    export SUB_DIR = $subProj
@@ -94,5 +94,5 @@ __DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # shellcheck source=/dev/null
 [[ -f "${__DIR}/pipeline-${lowerCaseProjectType}.sh" ]] &&  \
- source "${__DIR}/pipeline-${lowerCaseProjectType}.sh" ${SUB_DIR} ||  \
+ source "${__DIR}/pipeline-${lowerCaseProjectType}.sh" ||  \
  echo "No ${__DIR}/pipeline-${lowerCaseProjectType}.sh found"
