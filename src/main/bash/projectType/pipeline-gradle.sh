@@ -23,7 +23,7 @@ fi
 subProj="${SUB_DIR}"
 echo $subProj
 if [[! -z "$subProj" ]]; then
-	    export SUB_DIR = $subProj
+	    export SUB_DIR="$subProj"
 fi
 
 # FUNCTION: build {{{
