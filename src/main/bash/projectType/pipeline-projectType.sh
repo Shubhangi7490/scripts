@@ -31,8 +31,8 @@ function getLanguageType() {
 # FUNCTION: guessLanguageType {{{
 # Tries to guess the language type basing on the contents of the repository
 function guessLanguageType() {
-    if [[ ! -z "$SUB_DIR" ]] ; then
-       cd $SUB_DIR
+    if [[ ! -z "${SUB_DIR}" ]] ; then
+       cd ${SUB_DIR}
     fi
     
 	if [[ -f "mvnw" ||  -f "gradlew" ]]; then
@@ -51,12 +51,9 @@ function guessLanguageType() {
 LANGUAGE_TYPE_FROM_DESCRIPTOR="$( getLanguageType )"
 subProj="SUBPROJECT_DIR"
 subProject="${!subProj}"
-echo "test"
-echo $subProject
 if [[ ! -z "$subProject" ]] ; then
 	   export SUB_DIR="$subProject"
 fi
-echo "test1"
 echo ${SUB_DIR}
 if [[ "${LANGUAGE_TYPE}" != "" ]]; then
 	echo "Language type [${LANGUAGE_TYPE}] passed from env variables"
@@ -77,7 +74,7 @@ echo "Language type [${LANGUAGE_TYPE}]"
 # shellcheck source=/dev/null
 # Sources a file for the given [LANGUAGE_TYPE]
 if [[ ! -z "$SUB_DIR" ]] ; then
-       [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh $SUB_DIR" ||  \
+       [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh ${SUB_DIR}" ||  \
        echo "No projectType/pipeline-${LANGUAGE_TYPE}.sh found"
 else
    [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ||  \
