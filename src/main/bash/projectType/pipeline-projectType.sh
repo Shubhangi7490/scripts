@@ -13,11 +13,6 @@ set -o pipefail
 # Gets the language type from the parsed descriptor. Returns empty if it's not present
 # or if [language_type] node is not present in the descriptor.
 # Uses [PARSER_YAML] env var
-local subProj="SUBPROJECT_DIR"
-local subProject="${!subProj}"
-if [[ ! -z "$subProject" ]] ; then
-	   export SUB_DIR = $subProject
-fi
 
 	
 function getLanguageType() {
@@ -54,7 +49,15 @@ function guessLanguageType() {
 } # }}}
 
 LANGUAGE_TYPE_FROM_DESCRIPTOR="$( getLanguageType )"
-
+local subProj="SUBPROJECT_DIR"
+local subProject="${!subProj}"
+echo "test"
+echo $subProject
+if [[ ! -z "$subProject" ]] ; then
+	   export SUB_DIR = $subProject
+fi
+echo "test1"
+echo $SUB_DIR
 if [[ "${LANGUAGE_TYPE}" != "" ]]; then
 	echo "Language type [${LANGUAGE_TYPE}] passed from env variables"
 elif [[ "${LANGUAGE_TYPE_FROM_DESCRIPTOR}" != "" ]]; then
