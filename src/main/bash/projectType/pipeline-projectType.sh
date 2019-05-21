@@ -33,6 +33,7 @@ function guessLanguageType() {
 	local subProject="${!subProj}"
 	if [[ ! -z "$subProject" ]] ; then
        cd $subProject
+	   export SUBPROJECT_DIR = $subProject
 	fi
 	if [[ -f "mvnw" ||  -f "gradlew" ]]; then
 		echo "jvm"
