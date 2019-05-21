@@ -24,6 +24,7 @@ subProj="${SUB_DIR}"
 echo $subProj
 if [[! -z "$subProj" ]]; then
 	    export SUB_DIR="$subProj"
+		echo "goooooooooo - ${SUB_DIR}"
 fi
 
 # FUNCTION: build {{{
@@ -31,6 +32,7 @@ fi
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
 function build() {
 	if [[! -z "${SUB_DIR}" ]]; then
+	     echo "goooooooooo"
 	     cd ${SUB_DIR}
     fi
 	#cd bes-blob-storage
