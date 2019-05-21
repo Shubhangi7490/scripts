@@ -59,6 +59,7 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
+    ls -la
     cd bes-blob-storage
 	ls -la
 	grep "groupID" gradle.properties | cut -d'=' -f2
