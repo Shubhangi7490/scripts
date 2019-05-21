@@ -59,15 +59,17 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
-cd bes-blob-storage
-	grep "groupID" gradle.properties|cut -d'=' -f2
+    cd bes-blob-storage
+	ls -la
+	grep "groupID" gradle.properties | cut -d'=' -f2
 } # }}}
 
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
 function retrieveAppName() {
-cd bes-blob-storage
-	grep "artifactID" gradle.properties|cut -d'=' -f2
+    cd bes-blob-storage
+    ls -la
+	grep "artifactID" gradle.properties | cut -d'=' -f2
 } # }}}
 
 # FUNCTION: printTestResults {{{
