@@ -24,10 +24,9 @@ fi
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
 function build() {
-	if [[! -z "${SUB_DIR}" ]]; then
-	     echo "goooooooooo"
-	     cd ${SUB_DIR}
-    fi
+	if [[ ! -z "${SUB_DIR}" ]] ; then
+       cd ${SUB_DIR}
+	fi
 	#cd bes-blob-storage
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
 	if [[ "${CI}" == "CONCOURSE" ]]; then
@@ -44,12 +43,9 @@ function build() {
 # FUNCTION: executeApiCompatibilityCheck {{{
 # Gradle implementation of executing API compatibility check
 function executeApiCompatibilityCheck() {
-	local latestProdVersion="${1}"
-	local subProj=$SUB_DIR
-	echo $subProj
-	if [[! -z "$subProj" ]]; then
-	     cd $subProj
-    fi
+	if [[ ! -z "${SUB_DIR}" ]] ; then
+       cd ${SUB_DIR}
+	fi
 	if [[ "${CI}" == "CONCOURSE" ]]; then
 		# shellcheck disable=SC2086
 		"${GRADLEW_BIN}" clean apiCompatibility -DlatestProductionVersion="${latestProdVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
