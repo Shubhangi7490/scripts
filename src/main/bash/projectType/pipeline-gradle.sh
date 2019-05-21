@@ -30,10 +30,8 @@ fi
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
 function build() {
-	local subProj=$SUB_DIR
-	echo $subProj
-	if [[! -z "$subProj" ]]; then
-	     cd $subProj
+	if [[! -z "${SUB_DIR}" ]]; then
+	     cd ${SUB_DIR}
     fi
 	#cd bes-blob-storage
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
@@ -69,9 +67,7 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
-    local subProj=$SUB_DIR
-	echo $subProj
-	if [[! -z "$subProj" ]]; then
+    if [[! -z "${SUB_DIR}" ]]; then
 	     grep "groupID" $subProj/gradle.properties | cut -d'=' -f2
     else
 	     grep "groupID" gradle.properties | cut -d'=' -f2
@@ -81,9 +77,7 @@ function retrieveGroupId() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
 function retrieveAppName() {
-    local subProj=$SUB_DIR
-	echo $subProj
-	if [[! -z "$subProj" ]]; then
+    if [[! -z "${SUB_DIR}" ]]; then
 	     grep "artifactID" $subProj/gradle.properties | cut -d'=' -f2
     else
 	     grep "artifactID" gradle.properties | cut -d'=' -f2
