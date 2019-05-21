@@ -49,8 +49,8 @@ function guessLanguageType() {
 } # }}}
 
 LANGUAGE_TYPE_FROM_DESCRIPTOR="$( getLanguageType )"
-local subProj="SUBPROJECT_DIR"
-local subProject="${!subProj}"
+subProj="SUBPROJECT_DIR"
+subProject="${!subProj}"
 echo "test"
 echo ${subProject}
 if [[ ! -z "$subProject" ]] ; then
