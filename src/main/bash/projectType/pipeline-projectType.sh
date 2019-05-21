@@ -16,7 +16,6 @@ set -o pipefail
 local subProj="SUBPROJECT_DIR"
 local subProject="${!subProj}"
 if [[ ! -z "$subProject" ]] ; then
-       cd $subProject
 	   export SUB_DIR = $subProject
 fi
 
