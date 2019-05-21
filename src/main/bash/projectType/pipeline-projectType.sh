@@ -32,10 +32,7 @@ function getLanguageType() {
 # Tries to guess the language type basing on the contents of the repository
 function guessLanguageType() {
     if [[ ! -z "${SUB_DIR}" ]] ; then
-	   echo "goooooooo"
        cd ${SUB_DIR}
-    else
-       echo "noooooooo"
 	fi
 	if [[ -f "mvnw" ||  -f "gradlew" ]]; then
 		echo "jvm"
