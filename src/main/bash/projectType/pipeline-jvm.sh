@@ -79,11 +79,7 @@ function projectType() {
 
 export -f projectType
 export PROJECT_TYPE
-subProj="${SUB_DIR}"
-echo "test: $subProj"
-if [[! -z "$subProj" ]]; then
-	    export SUB_DIR = $subProj
-fi
+
 echo "Project type [${PROJECT_TYPE}]"
 echo "Subdirectory [${SUB_DIR}]"
 
