@@ -57,8 +57,8 @@ function executeApiCompatibilityCheck() {
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
     if [[ ! -z "${SUB_DIR}" ]] ; then
-	ls -la
-	ls -la ${SUB_DIR}
+	     ls -la
+	     ls -la ${SUB_DIR}
 	     grep "groupID" "${SUB_DIR}/gradle.properties" | cut -d'=' -f2
     else
 	     grep "groupID" gradle.properties | cut -d'=' -f2
