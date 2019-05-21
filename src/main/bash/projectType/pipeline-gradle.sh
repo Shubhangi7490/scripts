@@ -24,13 +24,12 @@ fi
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
 function build() {
-	local subProj="SUBPROJECT_DIR"
-	local subProject="${!subProj}"
+	local subProj=$SUBPROJECT_DIR
 	echo $subProject
 	if [[! -z "$subProject" ]]; then
 	     cd $subProject
     fi
-	cd bes-blob-storage
+	#cd bes-blob-storage
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
 	if [[ "${CI}" == "CONCOURSE" ]]; then
 		# shellcheck disable=SC2086
