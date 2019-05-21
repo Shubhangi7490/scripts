@@ -52,12 +52,12 @@ LANGUAGE_TYPE_FROM_DESCRIPTOR="$( getLanguageType )"
 local subProj="SUBPROJECT_DIR"
 local subProject="${!subProj}"
 echo "test"
-echo $subProject
+echo ${subProject}
 if [[ ! -z "$subProject" ]] ; then
 	   export SUB_DIR = $subProject
 fi
 echo "test1"
-echo $SUB_DIR
+echo ${SUB_DIR}
 if [[ "${LANGUAGE_TYPE}" != "" ]]; then
 	echo "Language type [${LANGUAGE_TYPE}] passed from env variables"
 elif [[ "${LANGUAGE_TYPE_FROM_DESCRIPTOR}" != "" ]]; then
