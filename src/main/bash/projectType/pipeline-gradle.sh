@@ -58,7 +58,7 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
-    if [[! -z "${SUB_DIR}" ]]; then
+    if [[ ! -z "${SUB_DIR}" ]] ; then
 	     grep "groupID" $subProj/gradle.properties | cut -d'=' -f2
     else
 	     grep "groupID" gradle.properties | cut -d'=' -f2
@@ -68,7 +68,7 @@ function retrieveGroupId() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
 function retrieveAppName() {
-    if [[! -z "${SUB_DIR}" ]]; then
+    if [[ ! -z "${SUB_DIR}" ]] ; then
 	     grep "artifactID" $subProj/gradle.properties | cut -d'=' -f2
     else
 	     grep "artifactID" gradle.properties | cut -d'=' -f2
