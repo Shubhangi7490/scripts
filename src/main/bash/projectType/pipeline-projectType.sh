@@ -73,7 +73,7 @@ echo "Language type [${LANGUAGE_TYPE}]"
 # shellcheck source=/dev/null
 # Sources a file for the given [LANGUAGE_TYPE]
 if [[ ! -z "$SUB_DIR" ]] ; then
-       [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh ${SUB_DIR}" ||  \
+       [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ||  \
        echo "No projectType/pipeline-${LANGUAGE_TYPE}.sh found"
 else
    [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ||  \
