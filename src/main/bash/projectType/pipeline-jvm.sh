@@ -85,6 +85,7 @@ if [[! -z "$subProj" ]]; then
 	    export SUB_DIR = $subProj
 fi
 echo "Project type [${PROJECT_TYPE}]"
+echo "Subdirectory [${SUB_DIR}]"
 
 # Setting a default when
 [[ -z "${REPO_WITH_BINARIES_FOR_UPLOAD}" ]] && REPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES}"
