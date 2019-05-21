@@ -21,7 +21,7 @@ if [[ ${BUILD_OPTIONS} != *"java.security.egd"* ]]; then
 fi
 
 subProj="${SUB_DIR}"
-echo $subProj
+echo "goooooooooo - sub - $subProj"
 if [[! -z "$subProj" ]]; then
 	    export SUB_DIR="$subProj"
 		echo "goooooooooo - ${SUB_DIR}"
