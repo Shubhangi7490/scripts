@@ -13,6 +13,14 @@ set -o pipefail
 # Gets the language type from the parsed descriptor. Returns empty if it's not present
 # or if [language_type] node is not present in the descriptor.
 # Uses [PARSER_YAML] env var
+local subProj="SUBPROJECT_DIR"
+local subProject="${!subProj}"
+if [[ ! -z "$subProject" ]] ; then
+       cd $subProject
+	   export SUB_DIR = $subProject
+fi
+
+	
 function getLanguageType() {
 	if [[ ! -z "${PARSED_YAML}" ]]; then
 		local languageType
@@ -29,12 +37,10 @@ function getLanguageType() {
 # FUNCTION: guessLanguageType {{{
 # Tries to guess the language type basing on the contents of the repository
 function guessLanguageType() {
-    local subProj="SUBPROJECT_DIR"
-	local subProject="${!subProj}"
-	if [[ ! -z "$subProject" ]] ; then
-       cd $subProject
-	   export SUBPROJECT_DIR = $subProject
-	fi
+    if [[ ! -z "$SUB_DIR" ]] ; then
+       cd $SUB_DIR
+    fi
+    
 	if [[ -f "mvnw" ||  -f "gradlew" ]]; then
 		echo "jvm"
 	elif [ -f "composer.json" ]; then
@@ -68,5 +74,10 @@ echo "Language type [${LANGUAGE_TYPE}]"
 # ---- [SOURCE] sourcing concrete language type ----
 # shellcheck source=/dev/null
 # Sources a file for the given [LANGUAGE_TYPE]
-[[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ||  \
- echo "No projectType/pipeline-${LANGUAGE_TYPE}.sh found"
+if [[ ! -z "$SUB_DIR" ]] ; then
+       [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh $SUB_DIR" ||  \
+       echo "No projectType/pipeline-${LANGUAGE_TYPE}.sh found"
+else
+   [[ -f "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ]] && source "${__DIR}/projectType/pipeline-${LANGUAGE_TYPE}.sh" ||  \
+   echo "No projectType/pipeline-${LANGUAGE_TYPE}.sh found"
+fi
