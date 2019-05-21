@@ -52,9 +52,9 @@ LANGUAGE_TYPE_FROM_DESCRIPTOR="$( getLanguageType )"
 subProj="SUBPROJECT_DIR"
 subProject="${!subProj}"
 echo "test"
-echo ${subProject}
+echo $subProject
 if [[ ! -z "$subProject" ]] ; then
-	   export SUB_DIR = $subProject
+	   export SUB_DIR="$subProject"
 fi
 echo "test1"
 echo ${SUB_DIR}
