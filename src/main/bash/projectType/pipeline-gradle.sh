@@ -20,12 +20,6 @@ if [[ ${BUILD_OPTIONS} != *"java.security.egd"* ]]; then
 	fi
 fi
 
-
-if [[! -z "${SUB_DIR}" ]]; then
-	    export SUB_DIR="${SUB_DIR}"
-		echo "goooooooooo - ${SUB_DIR}"
-fi
-
 # FUNCTION: build {{{
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
