@@ -59,12 +59,14 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
+cd bes-blob-storage
 	"${GRADLEW_BIN}" groupId -q | tail -1
 } # }}}
 
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
 function retrieveAppName() {
+cd bes-blob-storage
 	"${GRADLEW_BIN}" artifactId -q | tail -1
 } # }}}
 
@@ -87,6 +89,7 @@ function runSmokeTests() {
 	local pipelineVersion="${PASSED_PIPELINE_VERSION:-${PIPELINE_VERSION:-}}"
 	local applicationUrl="${APPLICATION_URL}"
 	local stubrunnerUrl="${STUBRUNNER_URL}"
+	cd bes-blob-storage
 	echo "Running smoke tests. Application url [${applicationUrl}], Stubrunner Url [${stubrunnerUrl}]"
 
 	if [[ "${CI}" == "CONCOURSE" ]]; then
@@ -103,6 +106,7 @@ function runSmokeTests() {
 function runE2eTests() {
 	local pipelineVersion="${PASSED_PIPELINE_VERSION:-${PIPELINE_VERSION:-}}"
 	local applicationUrl="${APPLICATION_URL}"
+	cd bes-blob-storage
 	echo "Running e2e tests for application with url [${applicationUrl}]"
 
 	if [[ "${CI}" == "CONCOURSE" ]]; then
