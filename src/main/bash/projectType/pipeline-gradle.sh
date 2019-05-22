@@ -56,6 +56,7 @@ function executeApiCompatibilityCheck() {
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of group id retrieval
 function retrieveGroupId() {
+echo "Hi : ${SUB_DIR}"
 	if [[ ! -z "${SUB_DIR}" ]] ; then
        cd ${SUB_DIR}
 	fi
