@@ -34,7 +34,7 @@ function build() {
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
 		# shellcheck disable=SC2086
-		"${GRADLEW_BIN}" clean build publish -x compileTestKotlin -x convertSwagger2markup -x ktlint -PnewVersion="${pipelineVersion}" -DM2_SETTINGS_REPO_USERNAME="${M2_SETTINGS_REPO_USERNAME}" -DM2_SETTINGS_REPO_PASSWORD="${M2_SETTINGS_REPO_PASSWORD}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} -Dorg.gradle.daemon.debug=true || (echo "Build failed!!!" && return 1)
+		"${GRADLEW_BIN}" clean build publish --rerun-tasks -x compileTestKotlin -x convertSwagger2markup -x ktlint -PnewVersion="${pipelineVersion}" -DM2_SETTINGS_REPO_USERNAME="${M2_SETTINGS_REPO_USERNAME}" -DM2_SETTINGS_REPO_PASSWORD="${M2_SETTINGS_REPO_PASSWORD}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} --debug || (echo "Build failed!!!" && return 1)
 	fi
 } # }}}
 
