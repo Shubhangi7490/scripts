@@ -58,25 +58,19 @@ function executeApiCompatibilityCheck() {
 function retrieveGroupId() {
 	if [[ ! -z "${SUB_DIR}" ]] ; then
        cd ${SUB_DIR}
-	   ls -la
 	fi
-	#grep "groupID" gradle.properties|cut -d'=' -f2   
+	grep "groupID" gradle.properties|cut -d'=' -f2   
      
 } 
 
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
 function retrieveAppName() {
-echo "artID"
     if [[ ! -z "${SUB_DIR}" ]] ; then
-	     ls -la
-	     ls -la ${SUB_DIR}
-		 echo "artID in ${SUB_DIR} "
-	     grep "artifactID" "${SUB_DIR}/gradle.properties" | cut -d'=' -f2
-    else
-	     grep "artifactID" gradle.properties | cut -d'=' -f2
+       cd ${SUB_DIR}
 	fi
-} # }}}
+	grep "artifactID" gradle.properties | cut -d'=' -f2
+}
 
 # FUNCTION: printTestResults {{{
 # Prints test results. Used by Concourse.
