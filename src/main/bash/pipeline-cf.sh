@@ -81,8 +81,6 @@ function testDeploy() {
 	# TODO: Consider making it less JVM specific
 	local projectGroupId
 	echo "Starting"
-	pwd
-	ls -la
 	projectGroupId=$(retrieveGroupId)
 	echo "Ending : $projectGroupId"
 	local appName
