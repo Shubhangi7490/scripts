@@ -81,6 +81,7 @@ function testDeploy() {
 	# TODO: Consider making it less JVM specific
 	local projectGroupId
 	echo "Starting"
+	cd bes-blob-storage
 	projectGroupId=$(retrieveGroupId)
 	echo "Ending : $projectGroupId"
 	local appName
