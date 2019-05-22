@@ -60,7 +60,7 @@ echo "Hi : ${SUB_DIR}"
 	if [[ ! -z "${SUB_DIR}" ]] ; then
        cd ${SUB_DIR}
 	fi
-	grep "groupID" gradle.properties|cut -d'=' -f2   
+	#grep "groupID" gradle.properties|cut -d'=' -f2   
      
 } 
 
