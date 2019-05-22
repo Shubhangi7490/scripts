@@ -58,13 +58,9 @@ function executeApiCompatibilityCheck() {
 function retrieveGroupId() {
     echo "groupID"
     if [[ ! -z "${SUB_DIR}" ]] ; then
-	     ls -la
-	     ls -la ${SUB_DIR}
-		 echo "groupID in ${SUB_DIR} "
-	     grep "groupID" "${SUB_DIR}/gradle.properties" | cut -d'=' -f2
-    else
+	     cd ${SUB_DIR}
+    fi
 	     grep "groupID" gradle.properties | cut -d'=' -f2
-	fi
 } # }}}
 
 # FUNCTION: retrieveGroupId {{{
