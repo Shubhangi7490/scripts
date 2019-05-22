@@ -60,8 +60,8 @@ function retrieveGroupId() {
     if [[ ! -z "${SUB_DIR}" ]] ; then
 	     cd ${SUB_DIR}
     fi
-	     grep "groupID" gradle.properties | cut -d'=' -f2
-} # }}}
+	    # grep "groupID" gradle.properties | cut -d'=' -f2
+} 
 
 # FUNCTION: retrieveGroupId {{{
 # Gradle implementation of app name retrieval
