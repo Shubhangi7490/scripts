@@ -83,7 +83,8 @@ function testDeploy() {
 	projectGroupId=$(retrieveGroupId)
 	local appName
 	appName=$(retrieveAppName)
-
+    local projectVersion
+	projectVersion=$(retrieveVersion)
 	logInToPaas
 	testCleanup
 
@@ -719,16 +720,18 @@ function stageDeploy() {
 	projectGroupId=$(retrieveGroupId)
 	local appName
 	appName=$(retrieveAppName)
+	local projectVersion
+	projectVersion=$(retrieveVersion)
 	# Log in to PaaS to start deployment
 	logInToPaas
 
 	deployServices
 	waitForServicesToInitialize
 
-	downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${projectGroupId}" "${appName}" "${PIPELINE_VERSION}" "${M2_SETTINGS_REPO_USERNAME}" "${M2_SETTINGS_REPO_PASSWORD}"
+	downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${projectGroupId}" "${appName}" "${projectVersion}" "${M2_SETTINGS_REPO_USERNAME}" "${M2_SETTINGS_REPO_PASSWORD}"
 
 	# deploy app
-	deployAndRestartAppWithName "${appName}" "${appName}-${PIPELINE_VERSION}"
+	deployAndRestartAppWithName "${appName}" "${appName}-${projectVersion}"
 	propagatePropertiesForTests "${appName}"
 } # }}}
 
@@ -754,9 +757,10 @@ function prodDeploy() {
 	projectGroupId="$(retrieveGroupId)"
 	local appName
 	appName="$(retrieveAppName)"
-
+	local projectVersion
+    projectVersion=$(retrieveVersion)
 	# download app
-	downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${projectGroupId}" "${appName}" "${PIPELINE_VERSION}" "${M2_SETTINGS_REPO_USERNAME}" "${M2_SETTINGS_REPO_PASSWORD}"
+	downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${projectGroupId}" "${appName}" "${projectVersion}" "${M2_SETTINGS_REPO_USERNAME}" "${M2_SETTINGS_REPO_PASSWORD}"
 	# Log in to CF to start deployment
 	logInToPaas
 
@@ -778,6 +782,8 @@ function performProductionDeploymentOfTestedApplication() {
 	local appRunning="no"
 	local venerableAppPresent="no"
 	local venerableAppRunning="no"
+	local projectVersion
+    projectVersion=$(retrieveVersion)
 	local noRunningAppsMsg="There are no running instances"
 	"${CF_BIN}" app "${appName}" | grep -v "${noRunningAppsMsg}" && appRunning="yes"
 	"${CF_BIN}" app "${newName}" && venerableAppPresent="yes"
@@ -797,7 +803,7 @@ function performProductionDeploymentOfTestedApplication() {
 	else
 		echo "Will not rename the application cause it's not there and old is not running"
 	fi
-	deployAndRestartAppWithName "${appName}" "${appName}-${PIPELINE_VERSION}"
+	deployAndRestartAppWithName "${appName}" "${appName}-${projectVersion}"
 } # }}}
 
 # FUNCTION: rollbackToPreviousVersion {{{
