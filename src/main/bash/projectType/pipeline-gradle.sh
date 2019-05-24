@@ -72,6 +72,13 @@ function retrieveAppName() {
 	grep "artifactID" gradle.properties | cut -d'=' -f2
 }
 
+function retrieveVersion() {
+    if [[ ! -z "${SUB_DIR}" ]] ; then
+       cd ${SUB_DIR}
+	fi
+	grep "version" gradle.properties | cut -d'=' -f2
+}
+
 # FUNCTION: printTestResults {{{
 # Prints test results. Used by Concourse.
 function printTestResults() {
