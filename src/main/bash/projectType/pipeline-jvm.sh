@@ -32,6 +32,7 @@ function downloadAppBinary() {
 	local artifact
 	artifact=${artifactId}-${version}.${BINARY_EXTENSION}
 	destination="$(pwd)/${OUTPUT_FOLDER}/${artifact}"
+	echo "URL : ${repoWithJars}"
 	if [[ ! -z "${version}" && $version == *"SNAPSHOT"* ]]; then
 	    local repository="$(echo '${repoWithJars}' | rev | cut -d '/' -f 1 | rev)"
 	    local protocol="$(echo '${repoWithJars}' | rev | cut -d '/' -f 5 | rev)"
