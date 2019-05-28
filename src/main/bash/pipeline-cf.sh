@@ -114,7 +114,16 @@ function testRollbackDeploy() {
 	downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${projectGroupId}" "${appName}" "${LATEST_PROD_VERSION}" "${M2_SETTINGS_REPO_USERNAME}" "${M2_SETTINGS_REPO_PASSWORD}"
 	logInToPaas
 	deleteApp "${appName}"
-	deployAndRestartAppWithName "${appName}" "${appName}-${LATEST_PROD_VERSION}"
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	"${appName}" "${appName}-${LATEST_PROD_VERSION}"
 	propagatePropertiesForTests "${appName}"
 	# Adding latest prod tag
 	echo "LATEST_PROD_TAG=${latestProdTag}" >>"${OUTPUT_FOLDER}/test.properties"
@@ -149,7 +158,8 @@ function deployService() {
 			IFS=${coordinatesSeparator} read -r APP_GROUP_ID APP_ARTIFACT_ID APP_VERSION <<<"${serviceCoordinates}"
 			IFS="${PREVIOUS_IFS}"
 			downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${APP_GROUP_ID}" "${APP_ARTIFACT_ID}" "${APP_VERSION}" "${M2_SETTINGS_REPO_USERNAME}" "${M2_SETTINGS_REPO_PASSWORD}"
-			deployAppAsService "${APP_ARTIFACT_ID}-${APP_VERSION}" "${serviceName}" "${pathToManifest}"
+			
+			"${APP_ARTIFACT_ID}-${APP_VERSION}" "${serviceName}" "${pathToManifest}"
 		;;
 		cups)
 			# Usage: cf cups SERVICE_INSTANCE -p CREDENTIALS (or credentials file)
@@ -222,7 +232,7 @@ function deployAndRestartAppWithName() {
 # Parses the [manifest.yml] file into [PARSED_APP_MANIFEST_YAML] env var
 function parseManifest() {
 	if [ -z "${PARSED_APP_MANIFEST_YAML}" ]; then
-		if [[ ! -f "manifest.yml" ]]; then
+		if [[ ! -f "${MANIFEST_PATH}" ]]; then
 			echo "App manifest.yml file not found"
 			return 1
 		fi
@@ -475,7 +485,8 @@ function deployAppAsService() {
 	if [[ "${LOWERCASE_ENV}" == "test" ]]; then
 		suffix="$(retrieveAppName)"
 	fi
-	deployAppNoStart "${appName}" "${binaryName}" "${ENVIRONMENT}" "${pathToManifest}" "${suffix}"
+	
+	"${appName}" "${binaryName}" "${ENVIRONMENT}" "${pathToManifest}" "${suffix}"
 	restartApp "${appName}"
 	createServiceWithName "${appName}"
 } # }}}
