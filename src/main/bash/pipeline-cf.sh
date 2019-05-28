@@ -333,7 +333,7 @@ function deployAppNoStart() {
 	local pathToPush
 	pathToPush="$( pathToPushToCf "${artifactName}" )"
 	echo "Deploying app with name [${lowerCaseAppName}], env [${env}] and host [${hostname}] with manifest file [${pathToManifest}] and path to push [${pathToPush}]. The sources should be downloadable [${DOWNLOADABLE_SOURCES}]"
-	"${CF_BIN}" push "${lowerCaseAppName}" -f "${pathToManifest}" -p "${pathToPush}" -n "${hostname}" -i "${instances}" --no-start
+	"${CF_BIN}" push "${lowerCaseAppName}" -f "${pathToManifest}" -p "${pathToPush}" -i "${instances}" --no-start
 	setEnvVar "${lowerCaseAppName}" 'APP_BINARY' "${artifactName}.${BINARY_EXTENSION}"
 	if [[ "${artifactType}" == "${SOURCE_ARTIFACT_TYPE_NAME}" && "${DOWNLOADABLE_SOURCES}" == "true" ]]; then
 		popd
