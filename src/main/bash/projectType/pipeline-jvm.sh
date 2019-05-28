@@ -29,18 +29,21 @@ function downloadAppBinary() {
 	local destination
 	local changedGroupId
 	local pathToJar
-	destination="$(pwd)/${OUTPUT_FOLDER}/${artifactId}-${version}.${BINARY_EXTENSION}"
-	
+	local artifact
+	artifact=${artifactId}-${version}.${BINARY_EXTENSION}
+	destination="$(pwd)/${OUTPUT_FOLDER}/${artifact}"
 	if [[ ! -z "${version}" && $version == *"SNAPSHOT"* ]]; then
 	    local repository = $(echo '${repoWithJars}' | rev | cut -d '/' -f 1 | rev)
 	    local protocol = $(echo '${repoWithJars}' | rev | cut -d '/' -f 5 | rev)
 		local domain = $(echo '${repoWithJars}' | rev | cut -d '/' -f 3 | rev)
-	    version=$(curl -u "${M2_SETTINGS_REPO_USERNAME}:${M2_SETTINGS_REPO_PASSWORD}" "${protocol}//${domain}/artifactory/api/search/latestVersion?g=${groupId}&a=${artifactId}&v=${version}&repos=${repository}")
-	    echo "Snapshot artifact version : $version"
+	    local version1=$(curl -u "${M2_SETTINGS_REPO_USERNAME}:${M2_SETTINGS_REPO_PASSWORD}" "${protocol}//${domain}/artifactory/api/search/latestVersion?g=${groupId}&a=${artifactId}&v=${version}&repos=${repository}")
+	    echo "Snapshot artifact version : $version1"
+		artifact=${artifactId}-${version1}.${BINARY_EXTENSION}
+		echo "Snapshot artifact is : $artifact"
 	fi
 	
 	changedGroupId="$(echo "${groupId}" | tr . /)"
-	pathToJar="${repoWithJars}/${changedGroupId}/${artifactId}/${version}/${artifactId}-${version}.${BINARY_EXTENSION}"
+	pathToJar="${repoWithJars}/${changedGroupId}/${artifactId}/${version}/${artifact}"
 	mkdir -p "${OUTPUT_FOLDER}"
 	echo "Current folder is [$(pwd)]; Downloading binary to [${destination}]"
 	local success="false"
