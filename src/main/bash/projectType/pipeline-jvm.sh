@@ -44,7 +44,7 @@ function downloadAppBinary() {
 	mkdir -p "${OUTPUT_FOLDER}"
 	echo "Current folder is [$(pwd)]; Downloading binary to [${destination}]"
 	local success="false"
-	echo "${M2_SETTINGS_REPO_USERNAME}:${M2_SETTINGS_REPO_PASSWORD} ${pathToJar}  -o  ${destination}"
+	echo 'curl -u "${M2_SETTINGS_REPO_USERNAME}:${M2_SETTINGS_REPO_PASSWORD}" "${pathToJar}" -o "${destination}"'
 	curl -u "${M2_SETTINGS_REPO_USERNAME}:${M2_SETTINGS_REPO_PASSWORD}" "${pathToJar}" -o "${destination}" --fail -L && success="true"
 	if [[ "${success}" == "true" ]]; then
 		echo "File downloaded successfully!"
