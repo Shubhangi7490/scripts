@@ -223,7 +223,7 @@ function deployAndRestartAppWithName() {
 		profiles="${profiles},${manifestProfiles}"
 	fi
 	echo "Deploying and restarting app with name [${appName}] and binary name [${binaryName}] and env [${ENVIRONMENT}]"
-	deployAppNoStart "${appName}" "${binaryName}" "${ENVIRONMENT}" "" ""
+	deployAppNoStart "${appName}" "${binaryName}" "${ENVIRONMENT}" "${MANIFEST_PATH}" ""
 	setEnvVar "${lowerCaseAppName}" 'SPRING_PROFILES_ACTIVE' "${profiles}"
 	restartApp "${appName}"
 } # }}}
@@ -238,6 +238,7 @@ function parseManifest() {
 		fi
 		export PARSED_APP_MANIFEST_YAML
 		PARSED_APP_MANIFEST_YAML="$(yaml2json "${MANIFEST_PATH}")"
+		echo ${PARSED_APP_MANIFEST_YAML}
 	fi
 } # }}}
 
