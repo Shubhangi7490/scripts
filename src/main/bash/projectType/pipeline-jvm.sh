@@ -34,7 +34,7 @@ function downloadAppBinary() {
 	destination="$(pwd)/${OUTPUT_FOLDER}/${artifact}"
 	echo "URL : ${repoWithJars}"
 	if [[ ! -z "${version}" && $version == *"SNAPSHOT"* ]]; then
-	    local repository="$(echo '${repoWithJars}' | rev | cut -d '/' -f 1 | rev)"
+	    local repository="$(echo ${repoWithJars} | rev | cut -d '/' -f 1 | rev)"
 	    local protocol="$(echo '${repoWithJars}' | rev | cut -d '/' -f 5 | rev)"
 		local domain="$(echo '${repoWithJars}' | rev | cut -d '/' -f 3 | rev)"
 	    local version1=$(curl -u "${M2_SETTINGS_REPO_USERNAME}:${M2_SETTINGS_REPO_PASSWORD}" "${protocol}//${domain}/artifactory/api/search/latestVersion?g=${groupId}&a=${artifactId}&v=${version}&repos=${repository}")
