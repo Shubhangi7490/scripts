@@ -92,9 +92,6 @@ function testDeploy() {
 	waitForServicesToInitialize
 
 	# deploy app
-	echo "Checking credentials"
-	echo "User: ${M2_SETTINGS_REPO_USERNAME}"
-	echo "Pass: ${M2_SETTINGS_REPO_PASSWORD}"
 	downloadAppBinary "${REPO_WITH_BINARIES_FOR_UPLOAD}" "${projectGroupId}" "${appName}" "${projectVersion}"
 	deployAndRestartAppWithName "${appName}" "${appName}-${projectVersion}"
 	propagatePropertiesForTests "${appName}"
