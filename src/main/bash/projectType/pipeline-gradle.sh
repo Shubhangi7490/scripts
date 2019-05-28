@@ -24,6 +24,8 @@ fi
 # Gradle implementation of build. Sets version, passes build options and distribution management properties.
 # Uses [PIPELINE_VERSION], [PASSED_PIPELINE_VERSION] and [M2_SETTINGS...], [REPO_WITH_BINARIES...] related env vars
 function build() {
+    local pipelineVersion="${PASSED_PIPELINE_VERSION:-${PIPELINE_VERSION:-}}"
+
 	if [[ ! -z "${SUB_DIR}" ]] ; then
        cd ${SUB_DIR}
 	fi
@@ -41,6 +43,7 @@ function build() {
 # FUNCTION: executeApiCompatibilityCheck {{{
 # Gradle implementation of executing API compatibility check
 function executeApiCompatibilityCheck() {
+    local latestProdVersion="${1}"
 	if [[ ! -z "${SUB_DIR}" ]] ; then
        cd ${SUB_DIR}
 	fi
