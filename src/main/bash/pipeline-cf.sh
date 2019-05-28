@@ -237,7 +237,7 @@ function parseManifest() {
 			return 1
 		fi
 		export PARSED_APP_MANIFEST_YAML
-		PARSED_APP_MANIFEST_YAML="$(yaml2json "manifest.yml")"
+		PARSED_APP_MANIFEST_YAML="$(yaml2json "${MANIFEST_PATH}")"
 	fi
 } # }}}
 
