@@ -59,7 +59,7 @@ function testCleanup() {
 	# TODO: Clean up space without relying on plug-ins???
 	#TODO: offline mode for when there is no internet connection
 	"${CF_BIN}" install-plugin do-all -r "CF-Community" -f
-	"${CF_BIN}" do-all delete {} -r -f
+	#"${CF_BIN}" do-all delete {} -r -f
 } # }}}
 
 # FUNCTION: deleteService {{{
