@@ -36,7 +36,7 @@ function build() {
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
 		# shellcheck disable=SC2086
-		"${GRADLEW_BIN}" clean build artifactoryPublish -PnewVersion="${pipelineVersion}" -Dartifactory.user="${M2_SETTINGS_REPO_USERNAME}" -Dartifactory.password="${M2_SETTINGS_REPO_PASSWORD}" -Dartifactory.contextUrl="${REPO_WITH_BINARIES}" -Dartifactory.url="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
+		"${GRADLEW_BIN}" clean build artifactoryPublish -PnewVersion="${pipelineVersion}" -Dartifactory_user="${M2_SETTINGS_REPO_USERNAME}" -Dartifactory_password="${M2_SETTINGS_REPO_PASSWORD}" -Dartifactory_contextUrl="${REPO_WITH_BINARIES}" -Dartifactory_url="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
 	fi
 } # }}}
 
