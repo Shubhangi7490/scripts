@@ -29,6 +29,10 @@ function build() {
 	if [[ ! -z "${SUB_DIR}" ]] ; then
        cd ${SUB_DIR}
 	fi
+	
+	local repository="$(echo ${REPO_WITH_BINARIES_FOR_UPLOAD} | rev | cut -d '/' -f 1 | rev)"
+	echo ${repository}
+		
 	#cd bes-blob-storage
 	BUILD_OPTIONS="${BUILD_OPTIONS} -DM2_SETTINGS_REPO_USERNAME=${M2_SETTINGS_REPO_USERNAME} -DM2_SETTINGS_REPO_PASSWORD=${M2_SETTINGS_REPO_PASSWORD}"
 	if [[ "${CI}" == "CONCOURSE" ]]; then
@@ -36,7 +40,7 @@ function build() {
 		"${GRADLEW_BIN}" clean build deploy -PnewVersion="${pipelineVersion}" -DREPO_WITH_BINARIES="${REPO_WITH_BINARIES}" -DREPO_WITH_BINARIES_FOR_UPLOAD="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (printTestResults && return 1)
 	else
 		# shellcheck disable=SC2086 
-		"${GRADLEW_BIN}" clean build artifactoryPublish -PnewVersion="${pipelineVersion}" -Partifactory_user="${M2_SETTINGS_REPO_USERNAME}" -Partifactory_password="${M2_SETTINGS_REPO_PASSWORD}" -Partifactory_contextUrl="${REPO_WITH_BINARIES}" -Partifactory_url="${REPO_WITH_BINARIES_FOR_UPLOAD}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
+		"${GRADLEW_BIN}" clean build artifactoryPublish -PnewVersion="${pipelineVersion}" -Partifactory_user="${M2_SETTINGS_REPO_USERNAME}" -Partifactory_password="${M2_SETTINGS_REPO_PASSWORD}" -Partifactory_contextUrl="${REPO_WITH_BINARIES}" -Partifactory_url="${REPO_WITH_BINARIES_FOR_UPLOAD}" -Partifactory_contextUrl="${repository}" --stacktrace ${BUILD_OPTIONS} || (echo "Build failed!!!" && return 1)
 	fi
 } # }}}
 
